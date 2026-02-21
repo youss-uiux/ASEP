@@ -1,0 +1,55 @@
+<section class="hero">
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Agence de confiance depuis 2018
+      </div>
+      <h1 class="hero-title">
+        Le personnel
+        <span class="title-accent">d'exception</span>
+        pour votre foyer
+      </h1>
+      <p class="hero-subtitle">
+        Nounous attentionnées, jardiniers passionnés, gardiens vigilants.
+        ASEP sélectionne pour vous des professionnels de confiance qui prennent soin de ce qui compte le plus.
+      </p>
+      <div class="hero-actions">
+        <a href="#order" class="btn-primary">
+          Trouver mon personnel
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#services" class="btn-secondary">
+          Découvrir nos services
+        </a>
+      </div>
+      <div class="hero-stats">
+        @for (stat of stats(); track stat.label) {
+          <div class="stat-item">
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="image-blob image-blob-1">
+        <img src="https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=600&h=700&fit=crop&crop=faces" alt="Nounou avec enfant" loading="eager"/>
+      </div>
+      <div class="image-blob image-blob-2">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=350&fit=crop" alt="Jardin entretenu" loading="eager"/>
+      </div>
+      <div class="floating-card">
+        <div class="floating-card-icon">⭐</div>
+        <div class="floating-card-text">
+          <span class="fc-value">4.9/5</span>
+          <span class="fc-label">Évaluation moyenne</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

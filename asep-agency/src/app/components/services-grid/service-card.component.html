@@ -1,0 +1,30 @@
+<div
+  class="service-card"
+  [class.hovered]="isHovered()"
+  [class.dimmed]="isHighlighted() && !isHovered()"
+  [style.grid-area]="service().gridArea"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()">
+
+  <div class="card-bg" [style.background-image]="'url(' + service().image + ')'"></div>
+  <div class="card-overlay"></div>
+
+  <div class="card-content">
+    <span class="card-icon">{{ service().icon }}</span>
+    <h3 class="card-title">{{ service().title }}</h3>
+    <p class="card-desc">{{ service().description }}</p>
+
+    @if (isHovered()) {
+      <div class="card-expanded">
+        <p class="card-long-desc">{{ service().longDescription }}</p>
+        <a href="#order" class="card-cta">
+          Réserver
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    }
+  </div>
+</div>
+

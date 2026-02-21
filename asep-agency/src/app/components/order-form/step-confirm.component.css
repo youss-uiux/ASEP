@@ -1,0 +1,140 @@
+.step-confirm {
+  padding: 1rem 0;
+}
+
+.step-title {
+  font-size: 1.35rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.step-desc {
+  text-align: center;
+  color: var(--gray);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--cream);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row.highlight {
+  background: var(--azure-light);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.25rem;
+}
+
+.summary-row.notes {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.summary-label {
+  font-size: 0.85rem;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--dark);
+  text-align: right;
+}
+
+.summary-row.notes .summary-value {
+  text-align: left;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--dark-soft);
+}
+
+.service-badge {
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--gray);
+  border: 1.5px solid var(--cream-dark);
+  transition: all var(--transition-fast);
+}
+
+.btn-back:hover {
+  border-color: var(--dark);
+  color: var(--dark);
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: var(--azure);
+  color: var(--white);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 16px rgba(0, 163, 217, 0.25);
+}
+
+.btn-submit:hover {
+  background: var(--azure-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 163, 217, 0.35);
+}
+
+@media (max-width: 480px) {
+  .summary-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .summary-value {
+    text-align: left;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  .btn-back, .btn-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

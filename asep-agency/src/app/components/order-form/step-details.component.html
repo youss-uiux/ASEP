@@ -1,0 +1,98 @@
+<div class="step-details" style="animation: fadeInUp 0.4s ease-out">
+  <h3 class="step-title">Parlez-nous de votre besoin</h3>
+  <p class="step-desc">Remplissez les informations ci-dessous pour que nous trouvions le profil idéal.</p>
+
+  <div class="form-grid">
+    <div class="form-group">
+      <label class="form-label">Nom complet</label>
+      <input
+        type="text"
+        class="form-input"
+        placeholder="Ex : Marie Dupont"
+        [value]="fullName()"
+        (input)="fullName.set($any($event.target).value)" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-input"
+        placeholder="marie@exemple.com"
+        [value]="email()"
+        (input)="email.set($any($event.target).value)" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Téléphone</label>
+      <input
+        type="tel"
+        class="form-input"
+        placeholder="+243 XXX XXX XXX"
+        [value]="phone()"
+        (input)="phone.set($any($event.target).value)" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Adresse</label>
+      <input
+        type="text"
+        class="form-input"
+        placeholder="Votre adresse complète"
+        [value]="address()"
+        (input)="address.set($any($event.target).value)" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Date de début souhaitée</label>
+      <input
+        type="date"
+        class="form-input"
+        [value]="date()"
+        (input)="date.set($any($event.target).value)" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Durée</label>
+      <select
+        class="form-input"
+        [value]="duration()"
+        (change)="duration.set($any($event.target).value)">
+        <option value="" disabled>Sélectionnez une durée</option>
+        @for (d of durations(); track d.value) {
+          <option [value]="d.value">{{ d.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-group full-width">
+      <label class="form-label">Notes supplémentaires <span class="optional">(optionnel)</span></label>
+      <textarea
+        class="form-input form-textarea"
+        placeholder="Précisez vos besoins spécifiques..."
+        rows="3"
+        [value]="notes()"
+        (input)="notes.set($any($event.target).value)">
+      </textarea>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-back" (click)="back()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Retour
+    </button>
+    <button
+      class="btn-next"
+      [class.disabled]="!isValid()"
+      (click)="submit()">
+      Continuer
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+</div>
+

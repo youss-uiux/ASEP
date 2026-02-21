@@ -1,0 +1,25 @@
+<section id="services" class="services-section">
+  <div class="section-container">
+    <div class="section-header">
+      <span class="section-tag">Nos Services</span>
+      <h2 class="section-title">
+        Un personnel qualifié,<br>
+        <span class="accent">à votre service</span>
+      </h2>
+      <p class="section-subtitle">
+        Chaque professionnel est rigoureusement sélectionné, formé et vérifié
+        pour vous offrir un service irréprochable.
+      </p>
+    </div>
+
+    <div class="bento-grid">
+      @for (service of services(); track service.id) {
+        <app-service-card
+          [service]="service"
+          [isHighlighted]="hoveredService() !== null && hoveredService() !== service.id"
+          (hovered)="onServiceHover($event)" />
+      }
+    </div>
+  </div>
+</section>
+

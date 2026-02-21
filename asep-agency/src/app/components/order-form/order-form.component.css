@@ -1,0 +1,208 @@
+.order-section {
+  padding: 6rem 2rem;
+  background: var(--white);
+}
+
+.order-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-tag {
+  display: inline-block;
+  background: var(--azure-light);
+  color: var(--azure-dark);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-title .accent {
+  color: var(--azure);
+  font-style: italic;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--gray);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.form-wrapper {
+  background: var(--cream);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-sm);
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Progress */
+.progress-bar-container {
+  margin-bottom: 2.5rem;
+}
+
+.progress-bar {
+  height: 4px;
+  background: var(--cream-dark);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--azure);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.steps-indicator {
+  display: flex;
+  justify-content: space-between;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: default;
+  padding: 0;
+}
+
+.step-indicator.clickable {
+  cursor: pointer;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 2px solid var(--cream-dark);
+  color: var(--gray-light);
+  background: var(--white);
+  transition: all var(--transition-base);
+}
+
+.step-indicator.active .step-number {
+  border-color: var(--azure);
+  color: var(--azure);
+  background: var(--azure-light);
+  box-shadow: 0 0 0 4px rgba(0, 163, 217, 0.1);
+}
+
+.step-indicator.completed .step-number {
+  border-color: var(--azure);
+  background: var(--azure);
+  color: var(--white);
+}
+
+.step-label {
+  font-size: 0.75rem;
+  color: var(--gray-light);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.step-indicator.active .step-label {
+  color: var(--azure);
+  font-weight: 600;
+}
+
+.step-indicator.completed .step-label {
+  color: var(--dark);
+}
+
+/* Step content */
+.step-content {
+  min-height: 300px;
+  position: relative;
+}
+
+/* Success */
+.success-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.success-icon {
+  margin-bottom: 2rem;
+}
+
+@keyframes circleIn {
+  to { stroke-dashoffset: 0; }
+}
+
+.success-title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.success-text {
+  font-size: 1.05rem;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 420px;
+  margin: 0 auto 2rem;
+}
+
+.btn-reset {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--azure);
+  border: 1.5px solid var(--azure);
+  transition: all var(--transition-base);
+}
+
+.btn-reset:hover {
+  background: var(--azure);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .form-wrapper {
+    padding: 1.5rem;
+  }
+
+  .step-label {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-section {
+    padding: 4rem 1.25rem;
+  }
+}
+

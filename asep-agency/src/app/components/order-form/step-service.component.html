@@ -1,0 +1,38 @@
+<div class="step-service" style="animation: fadeInUp 0.4s ease-out">
+  <h3 class="step-title">Quel service recherchez-vous ?</h3>
+  <p class="step-desc">Sélectionnez le type de personnel dont vous avez besoin.</p>
+
+  <div class="service-cards">
+    @for (service of services(); track service.id) {
+      <button
+        class="service-option"
+        [class.selected]="selectedService() === service.id"
+        [class.hovered]="hoveredCard() === service.id"
+        (mouseenter)="hoveredCard.set(service.id)"
+        (mouseleave)="hoveredCard.set(null)"
+        (click)="selectService(service.id)">
+        <span class="option-icon">{{ service.icon }}</span>
+        <span class="option-title">{{ service.title }}</span>
+        <span class="option-desc">{{ service.desc }}</span>
+        <ul class="option-features">
+          @for (feature of service.features; track feature) {
+            <li>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--azure)" stroke-width="2.5">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              {{ feature }}
+            </li>
+          }
+        </ul>
+        <span class="select-indicator">
+          @if (selectedService() === service.id) {
+            Sélectionné ✓
+          } @else {
+            Choisir →
+          }
+        </span>
+      </button>
+    }
+  </div>
+</div>
+

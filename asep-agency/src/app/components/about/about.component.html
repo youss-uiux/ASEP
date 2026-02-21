@@ -1,0 +1,39 @@
+<section id="about" class="about-section">
+  <div class="about-container">
+    <div class="about-image-col">
+      <div class="about-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=750&fit=crop&crop=faces" alt="Équipe ASEP" loading="lazy"/>
+      </div>
+      <div class="experience-badge">
+        <span class="exp-number">8+</span>
+        <span class="exp-text">années<br>d'expérience</span>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <span class="section-tag">À Propos</span>
+      <h2 class="about-title">
+        La confiance au cœur<br>
+        <span class="accent">de chaque placement</span>
+      </h2>
+      <p class="about-text">
+        Fondée en 2018, ASEP Agency est née d'une conviction simple : chaque foyer mérite
+        un personnel de confiance, compétent et humain. Nous ne plaçons pas simplement des
+        employés — nous créons des relations durables.
+      </p>
+
+      <div class="values-list">
+        @for (value of values(); track value.title) {
+          <div class="value-item">
+            <div class="value-icon">{{ value.icon }}</div>
+            <div class="value-content">
+              <h4 class="value-title">{{ value.title }}</h4>
+              <p class="value-desc">{{ value.desc }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,57 @@
+<div class="step-confirm" style="animation: fadeInUp 0.4s ease-out">
+  <h3 class="step-title">Vérifiez votre demande</h3>
+  <p class="step-desc">Assurez-vous que tout est correct avant d'envoyer.</p>
+
+  <div class="summary-card">
+    <div class="summary-row highlight">
+      <span class="summary-label">Service</span>
+      <span class="summary-value service-badge">{{ serviceLabel() }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Nom</span>
+      <span class="summary-value">{{ formData().fullName }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Email</span>
+      <span class="summary-value">{{ formData().email }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Téléphone</span>
+      <span class="summary-value">{{ formData().phone }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Adresse</span>
+      <span class="summary-value">{{ formData().address }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Date de début</span>
+      <span class="summary-value">{{ formData().date }}</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Durée</span>
+      <span class="summary-value">{{ durationLabel() }}</span>
+    </div>
+    @if (formData().notes) {
+      <div class="summary-row notes">
+        <span class="summary-label">Notes</span>
+        <span class="summary-value">{{ formData().notes }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-back" (click)="back()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Modifier
+    </button>
+    <button class="btn-submit" (click)="confirm()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+      </svg>
+      Envoyer la demande
+    </button>
+  </div>
+</div>
+

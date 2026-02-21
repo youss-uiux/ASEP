@@ -1,0 +1,28 @@
+<nav [class.scrolled]="isScrolled()" class="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo">
+      <span class="logo-icon">✦</span>
+      <span class="logo-text">ASEP</span>
+      <span class="logo-sub">Agency</span>
+    </a>
+
+    <div class="nav-links" [class.active]="mobileMenuOpen()">
+      <a href="#services" class="nav-link" (click)="closeMenu()">Services</a>
+      <a href="#about" class="nav-link" (click)="closeMenu()">À Propos</a>
+      <a href="#testimonials" class="nav-link" (click)="closeMenu()">Témoignages</a>
+      <a href="#order" class="nav-link cta-link" (click)="closeMenu()">
+        <span>Réserver</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <button class="hamburger" [class.active]="mobileMenuOpen()" (click)="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+

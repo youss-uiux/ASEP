@@ -1,0 +1,274 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(0, 163, 217, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-content {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--azure-light);
+  color: var(--azure-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  letter-spacing: 0.02em;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--azure);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.title-accent {
+  color: var(--azure);
+  font-style: italic;
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--gray);
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--azure);
+  color: var(--white);
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 16px rgba(0, 163, 217, 0.25);
+}
+
+.btn-primary:hover {
+  background: var(--azure-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 163, 217, 0.35);
+}
+
+.btn-primary svg {
+  transition: transform var(--transition-fast);
+}
+
+.btn-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--dark);
+  border: 1.5px solid var(--cream-dark);
+  transition: all var(--transition-base);
+}
+
+.btn-secondary:hover {
+  border-color: var(--azure);
+  color: var(--azure);
+  background: var(--azure-light);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--gray);
+  margin-top: 0.15rem;
+}
+
+/* Visual / Images */
+.hero-visual {
+  position: relative;
+  height: 520px;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+.image-blob {
+  position: absolute;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.image-blob img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-blob-1 {
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 420px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+.image-blob-2 {
+  bottom: 0;
+  left: 0;
+  width: 240px;
+  height: 200px;
+  border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%;
+}
+
+.floating-card {
+  position: absolute;
+  bottom: 80px;
+  right: -20px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--white);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.floating-card-icon {
+  font-size: 1.5rem;
+}
+
+.fc-value {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: block;
+}
+
+.fc-label {
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+@media (max-width: 968px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    height: 400px;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .image-blob-1 {
+    width: 260px;
+    height: 340px;
+  }
+
+  .image-blob-2 {
+    width: 180px;
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 7rem 1.25rem 3rem;
+  }
+
+  .hero-visual {
+    height: 300px;
+  }
+
+  .hero-stats {
+    gap: 1.5rem;
+  }
+
+  .floating-card {
+    right: 10px;
+    bottom: 40px;
+  }
+}
+
