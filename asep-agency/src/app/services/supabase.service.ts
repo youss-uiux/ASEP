@@ -9,6 +9,11 @@ export type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
 export class SupabaseService {
   private supabase: SupabaseClient;
 
+  /** Accès public au client pour auth et queries admin */
+  get client(): SupabaseClient {
+    return this.supabase;
+  }
+
   /** État de la soumission */
   readonly submissionState = signal<SubmissionState>('idle');
 
