@@ -2,8 +2,8 @@ export const environment = {
   production: true,
 
   // ── Supabase ──────────────────────────────────────────────
-  supabaseUrl: 'https://YOUR_PROJECT_REF.supabase.co',
-  supabaseAnonKey: 'YOUR_SUPABASE_ANON_KEY',
+  supabaseUrl: 'https://pgomyxwhnrikpwwopywj.supabase.co',
+  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnb215eHdobnJpa3B3d29weXdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NTgyOTUsImV4cCI6MjA4NzQzNDI5NX0.g9E5YKg2mkVIbSluFGHEfUlXI92e2VYAJwKUu6mtt5Q',
 
   // ── Firebase ──────────────────────────────────────────────
   firebase: {

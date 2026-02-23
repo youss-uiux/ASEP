@@ -26,10 +26,10 @@ CREATE INDEX IF NOT EXISTS idx_leads_created_at ON public.leads (created_at DESC
 ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
 
 -- Politique : tout le monde peut insérer (formulaire public)
+-- Couvre les rôles anon ET authenticated (clé publishable/anon)
 CREATE POLICY "Allow public insert on leads"
   ON public.leads
   FOR INSERT
-  TO anon
   WITH CHECK (true);
 
 -- Politique : seuls les utilisateurs authentifiés peuvent lire
