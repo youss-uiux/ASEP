@@ -9,6 +9,7 @@ import { OrderRequest } from '../../models/service.model';
 })
 export class StepConfirmComponent {
   formData = input.required<OrderRequest>();
+  isSubmitting = input(false);
   confirmed = output<void>();
   goBack = output<void>();
 

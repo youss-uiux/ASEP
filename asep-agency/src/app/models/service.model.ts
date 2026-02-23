@@ -20,6 +20,18 @@ export interface OrderRequest {
   notes: string;
 }
 
+export interface Lead extends OrderRequest {
+  id?: string;
+  created_at?: string;
+  status?: 'new' | 'contacted' | 'closed';
+}
+
+export interface AdminToken {
+  id?: string;
+  token: string;
+  created_at?: string;
+}
+
 export interface Testimonial {
   id: number;
   name: string;
