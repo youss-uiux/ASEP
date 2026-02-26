@@ -17,31 +17,17 @@
 }
 
 .footer-logo {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
   margin-bottom: 1rem;
 }
 
-.logo-icon {
-  font-size: 1.3rem;
-  color: var(--azure);
-}
-
-.logo-text {
-  font-family: var(--serif);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--cream);
-}
-
-.logo-sub {
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  font-weight: 400;
-  color: rgba(250, 247, 242, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.footer-logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  /* Le logo est sur fond blanc — on l'arrondit légèrement */
+  border-radius: 8px;
+  background: var(--white);
+  padding: 4px 8px;
 }
 
 .footer-desc {

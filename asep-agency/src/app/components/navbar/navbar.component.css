@@ -27,31 +27,23 @@
 
 .logo {
   display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
+  align-items: center;
   z-index: 1001;
 }
 
-.logo-icon {
-  font-size: 1.5rem;
-  color: var(--azure);
+.logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity var(--transition-fast);
 }
 
-.logo-text {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--dark);
-  letter-spacing: -0.02em;
+.logo:hover .logo-img {
+  opacity: 0.85;
 }
 
-.logo-sub {
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: var(--gray);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.navbar.scrolled .logo-img {
+  height: 40px;
 }
 
 .nav-links {
