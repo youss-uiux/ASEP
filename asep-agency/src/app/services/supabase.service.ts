@@ -1,7 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
-import { OrderRequest, Lead, AdminToken } from '../models/service.model';
+import { OrderRequest, Lead, AdminToken, Service } from '../models/service.model';
 
 export type SubmissionState = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -20,6 +20,9 @@ export class SupabaseService {
   /** Message d'erreur éventuel */
   readonly errorMessage = signal<string | null>(null);
 
+  /** Services chargés depuis Supabase */
+  readonly services = signal<Service[]>([]);
+
   /** Signaux dérivés pour le template */
   readonly isSubmitting = computed(() => this.submissionState() === 'submitting');
   readonly isSuccess = computed(() => this.submissionState() === 'success');
@@ -30,11 +33,31 @@ export class SupabaseService {
       environment.supabaseUrl,
       environment.supabaseAnonKey
     );
-    // 🔍 DIAGNOSTIC — à supprimer après confirmation
-    const key = environment.supabaseAnonKey;
-    console.log('[Supabase] URL:', environment.supabaseUrl);
-    console.log('[Supabase] Clé (début):', key.substring(0, 20));
-    console.log('[Supabase] Clé est un JWT ?', key.startsWith('eyJ'));
+  }
+
+  /**
+   * Charge les services actifs depuis Supabase (table `services`).
+   */
+  async loadServices(): Promise<Service[]> {
+    const { data, error } = await this.supabase
+      .from('services')
+      .select('*')
+      .eq('is_active', true)
+      .order('display_order', { ascending: true });
+
+    if (!error && data) {
+      this.services.set(data as Service[]);
+      return data as Service[];
+    }
+    return [];
+  }
+
+  /**
+   * Résout le label d'un service à partir de son slug.
+   */
+  getServiceLabel(slug: string): string {
+    const svc = this.services().find(s => s.slug === slug);
+    return svc ? `${svc.icon} ${svc.title}` : slug;
   }
 
   /**
@@ -46,18 +69,19 @@ export class SupabaseService {
 
     // Payload en snake_case pour correspondre exactement aux colonnes Supabase
     const lead = {
-      service:   order.service,
-      full_name: order.fullName,
-      email:     order.email,
-      phone:     order.phone,
-      address:   order.address,
-      date:      order.date,
-      duration:  order.duration,
-      notes:     order.notes,
-      status:    'new',
+      service_id:   order.service_id || null,
+      service_slug: order.service_slug,
+      client_type:  order.client_type,
+      full_name:    order.fullName,
+      company:      order.company,
+      email:        order.email,
+      phone:        order.phone,
+      address:      order.address,
+      date:         order.date,
+      duration:     order.duration,
+      notes:        order.notes,
+      status:       'new',
     };
-
-    console.log('[Supabase] Payload INSERT:', lead);
 
     const { data, error } = await this.supabase
       .from('leads')
@@ -79,7 +103,6 @@ export class SupabaseService {
    * Enregistre un token FCM d'administrateur dans `admin_tokens`.
    */
   async saveAdminToken(token: string): Promise<void> {
-    // Vérifie si le token existe déjà
     const { data: existing } = await this.supabase
       .from('admin_tokens')
       .select('id')
@@ -103,4 +126,3 @@ export class SupabaseService {
     this.errorMessage.set(null);
   }
 }
-

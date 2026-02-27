@@ -2,11 +2,12 @@
   class="service-card"
   [class.hovered]="isHovered()"
   [class.dimmed]="isHighlighted() && !isHovered()"
-  [style.grid-area]="service().gridArea"
   (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()">
 
-  <div class="card-bg" [style.background-image]="'url(' + service().image + ')'"></div>
+  <div class="card-bg"
+       [style.background-image]="service().image_url ? 'url(' + service().image_url + ')' : 'none'"
+       [style.background-color]="!service().image_url ? service().color : ''"></div>
   <div class="card-overlay"></div>
 
   <div class="card-content">
@@ -16,9 +17,14 @@
 
     @if (isHovered()) {
       <div class="card-expanded">
-        <p class="card-long-desc">{{ service().longDescription }}</p>
+        <p class="card-long-desc">{{ service().long_description }}</p>
+        <ul class="card-features">
+          @for (feature of service().features; track feature) {
+            <li>{{ feature }}</li>
+          }
+        </ul>
         <a href="#order" class="card-cta">
-          Réserver
+          Demander un devis
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>

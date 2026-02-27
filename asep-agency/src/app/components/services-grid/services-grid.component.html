@@ -1,18 +1,18 @@
 <section id="services" class="services-section">
   <div class="section-container">
     <div class="section-header">
-      <span class="section-tag">Nos Services</span>
+      <span class="section-tag">Nos Secteurs</span>
       <h2 class="section-title">
-        Un personnel qualifié,<br>
-        <span class="accent">à votre service</span>
+        10 domaines d'expertise,<br>
+        <span class="accent">un seul partenaire</span>
       </h2>
       <p class="section-subtitle">
-        Chaque professionnel est rigoureusement sélectionné, formé et vérifié
-        pour vous offrir un service irréprochable.
+        Chaque prestation est assurée par des professionnels rigoureusement
+        sélectionnés et formés selon les standards du Groupe ASEP.
       </p>
     </div>
 
-    <div class="bento-grid">
+    <div class="services-grid">
       @for (service of services(); track service.id) {
         <app-service-card
           [service]="service"
@@ -22,4 +22,3 @@
     </div>
   </div>
 </section>
-

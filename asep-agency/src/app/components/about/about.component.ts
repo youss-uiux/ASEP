@@ -8,9 +8,25 @@ import { Component, signal } from '@angular/core';
 })
 export class AboutComponent {
   values = signal([
-    { icon: '✓', title: 'Sélection rigoureuse', desc: 'Chaque candidat passe un processus en 5 étapes : vérification d\'identité, casier judiciaire, références, entretien et période d\'essai.' },
-    { icon: '♡', title: 'Suivi personnalisé', desc: 'Un conseiller dédié vous accompagne pour garantir une relation harmonieuse avec votre personnel.' },
-    { icon: '⟳', title: 'Remplacement garanti', desc: 'En cas d\'absence ou d\'insatisfaction, nous assurons un remplacement sous 24h, sans frais supplémentaires.' }
+    {
+      icon: '✓',
+      title: 'Professionnalisme',
+      desc: 'Un service conforme aux normes et aux attentes de chaque client, qu\'il soit particulier, entreprise ou institution.'
+    },
+    {
+      icon: '♡',
+      title: 'Rigueur & Fiabilité',
+      desc: 'Application stricte des procédures et délais établis. Une confiance bâtie dans la durée.'
+    },
+    {
+      icon: '⟳',
+      title: 'Innovation & Discipline',
+      desc: 'Anticipation des besoins, intégration de solutions modernes, ponctualité et cohérence dans chaque prestation.'
+    },
+    {
+      icon: '★',
+      title: 'Engagement Social',
+      desc: 'Contribution active à la promotion de l\'emploi, à la professionnalisation des métiers et au développement local au Niger.'
+    }
   ]);
 }
-

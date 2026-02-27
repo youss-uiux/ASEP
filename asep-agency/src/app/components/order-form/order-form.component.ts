@@ -26,8 +26,11 @@ export class OrderFormComponent {
   isSubmitting = this.supabaseService.isSubmitting;
 
   formData = signal<OrderRequest>({
-    service: '',
+    service_slug: '',
+    service_id: '',
+    client_type: 'particulier',
     fullName: '',
+    company: '',
     email: '',
     phone: '',
     address: '',
@@ -65,8 +68,8 @@ export class OrderFormComponent {
     });
   }
 
-  onServiceSelected(service: string) {
-    this.formData.update(d => ({ ...d, service }));
+  onServiceSelected(service: { slug: string; id: string }) {
+    this.formData.update(d => ({ ...d, service_slug: service.slug, service_id: service.id }));
     this.currentStep.set(2);
   }
 
@@ -92,8 +95,11 @@ export class OrderFormComponent {
     this.errorMessage.set(null);
     this.supabaseService.resetState();
     this.formData.set({
-      service: '',
+      service_slug: '',
+      service_id: '',
+      client_type: 'particulier',
       fullName: '',
+      company: '',
       email: '',
       phone: '',
       address: '',

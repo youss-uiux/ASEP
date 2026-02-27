@@ -2,12 +2,15 @@ import { Component, signal, inject, OnInit, computed } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { SupabaseService } from '../../services/supabase.service';
-
-type LeadStatus = 'new' | 'contacted' | 'closed';
+import { LeadStatus } from '../../models/service.model';
 
 interface LeadRow {
   id: string;
   service: string;
+  service_slug: string;
+  service_id: string;
+  client_type: string;
+  company: string;
   full_name: string;
   email: string;
   phone: string;
@@ -19,16 +22,11 @@ interface LeadRow {
   created_at: string;
 }
 
-const SERVICE_LABELS: Record<string, string> = {
-  nanny:    '👶 Nounou',
-  gardener: '🌿 Jardinier',
-  guard:    '🛡️ Gardien',
-};
-
-const STATUS_LABELS: Record<LeadStatus, string> = {
-  new:       'Nouveau',
-  contacted: 'Contacté',
-  closed:    'Clôturé',
+const STATUS_LABELS: Record<string, string> = {
+  new:         'Nouveau',
+  contacted:   'Contacté',
+  in_progress: 'En cours',
+  closed:      'Clôturé',
 };
 
 @Component({
@@ -46,9 +44,8 @@ export class AdminDashboardComponent implements OnInit {
   selectedLead = signal<LeadRow | null>(null);
   updatingId   = signal<string | null>(null);
 
-  serviceLabels = SERVICE_LABELS;
   statusLabels  = STATUS_LABELS;
-  statusKeys    = ['all', 'new', 'contacted', 'closed'] as const;
+  statusKeys    = ['all', 'new', 'contacted', 'in_progress', 'closed'] as const;
 
   filteredLeads = computed(() => {
     let list = this.leads();
@@ -67,10 +64,11 @@ export class AdminDashboardComponent implements OnInit {
   });
 
   stats = computed(() => ({
-    total:     this.leads().length,
-    new:       this.leads().filter(l => l.status === 'new').length,
-    contacted: this.leads().filter(l => l.status === 'contacted').length,
-    closed:    this.leads().filter(l => l.status === 'closed').length,
+    total:       this.leads().length,
+    new:         this.leads().filter(l => l.status === 'new').length,
+    contacted:   this.leads().filter(l => l.status === 'contacted').length,
+    in_progress: this.leads().filter(l => l.status === 'in_progress').length,
+    closed:      this.leads().filter(l => l.status === 'closed').length,
   }));
 
   private supabase = inject(SupabaseService);
@@ -82,6 +80,7 @@ export class AdminDashboardComponent implements OnInit {
       this.router.navigate(['/admin']);
       return;
     }
+    await this.supabase.loadServices();
     await this.loadLeads();
   }
 
@@ -135,12 +134,11 @@ export class AdminDashboardComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  getServiceLabel(s: string) {
-    return SERVICE_LABELS[s] || s;
+  getServiceLabel(slug: string): string {
+    return this.supabase.getServiceLabel(slug);
   }
 
-  getStatusLabel(s: LeadStatus) {
+  getStatusLabel(s: string): string {
     return STATUS_LABELS[s] || s;
   }
 }
-

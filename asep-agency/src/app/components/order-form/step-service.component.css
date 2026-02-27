@@ -17,8 +17,11 @@
 
 .service-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
 }
 
 .service-option {
@@ -26,12 +29,16 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 1.75rem 1.25rem;
+  padding: 1.25rem 1rem;
   border: 2px solid var(--cream-dark);
   border-radius: var(--radius-lg);
   background: var(--white);
   cursor: pointer;
   transition: all var(--transition-base);
+}
+
+.option-features {
+  display: none;
 }
 
 .service-option:hover {
@@ -107,24 +114,13 @@
 
 @media (max-width: 640px) {
   .service-cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    max-height: none;
   }
 
   .service-option {
-    flex-direction: row;
-    text-align: left;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .option-icon {
-    margin-bottom: 0;
-  }
-
-  .option-features {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
     gap: 0.5rem;
   }
 }

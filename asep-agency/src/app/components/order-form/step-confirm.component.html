@@ -8,6 +8,16 @@
       <span class="summary-value service-badge">{{ serviceLabel() }}</span>
     </div>
     <div class="summary-row">
+      <span class="summary-label">Type de client</span>
+      <span class="summary-value">{{ clientTypeLabel() }}</span>
+    </div>
+    @if (formData().company) {
+      <div class="summary-row">
+        <span class="summary-label">Entreprise</span>
+        <span class="summary-value">{{ formData().company }}</span>
+      </div>
+    }
+    <div class="summary-row">
       <span class="summary-label">Nom</span>
       <span class="summary-value">{{ formData().fullName }}</span>
     </div>

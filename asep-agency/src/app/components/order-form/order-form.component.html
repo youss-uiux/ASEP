@@ -1,13 +1,14 @@
 <section id="order" class="order-section">
   <div class="order-container">
     <div class="section-header">
-      <span class="section-tag">Réservation</span>
+      <span class="section-tag">Demande de devis</span>
       <h2 class="section-title">
-        Réservez votre<br>
-        <span class="accent">personnel en 3 étapes</span>
+        Obtenez votre devis<br>
+        <span class="accent">en 3 étapes simples</span>
       </h2>
       <p class="section-subtitle">
-        Simple, rapide et sans engagement. Décrivez votre besoin et nous vous trouvons le profil idéal.
+        Sélectionnez votre secteur, renseignez vos coordonnées et soumettez votre demande.
+        Notre équipe vous répond sous 24h.
       </p>
     </div>
 
@@ -67,7 +68,7 @@
           @switch (currentStep()) {
             @case (1) {
               <app-step-service
-                [selectedService]="formData().service"
+                [selectedService]="formData().service_slug"
                 (serviceChosen)="onServiceSelected($event)" />
             }
             @case (2) {

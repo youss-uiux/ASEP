@@ -1,17 +1,27 @@
 export interface Service {
   id: string;
+  slug: string;
   title: string;
   description: string;
-  longDescription: string;
+  long_description: string;
   icon: string;
-  image: string;
-  gridArea: string;
+  image_url: string;
   color: string;
+  grid_area: string;
+  features: string[];
+  display_order: number;
+  is_active: boolean;
 }
 
+export type ClientType = 'particulier' | 'entreprise' | 'institution';
+export type LeadStatus = 'new' | 'contacted' | 'in_progress' | 'closed';
+
 export interface OrderRequest {
-  service: string;
+  service_slug: string;
+  service_id?: string;
+  client_type: ClientType;
   fullName: string;
+  company: string;
   email: string;
   phone: string;
   address: string;
@@ -23,7 +33,7 @@ export interface OrderRequest {
 export interface Lead extends OrderRequest {
   id?: string;
   created_at?: string;
-  status?: 'new' | 'contacted' | 'closed';
+  status?: LeadStatus;
 }
 
 export interface AdminToken {
@@ -40,4 +50,3 @@ export interface Testimonial {
   avatar: string;
   rating: number;
 }
-

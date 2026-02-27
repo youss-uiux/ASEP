@@ -57,6 +57,10 @@
         <span class="stat-value">{{ stats().contacted }}</span>
         <span class="stat-label">Contactés</span>
       </div>
+      <div class="stat-card in_progress">
+        <span class="stat-value">{{ stats().in_progress }}</span>
+        <span class="stat-label">En cours</span>
+      </div>
       <div class="stat-card closed">
         <span class="stat-value">{{ stats().closed }}</span>
         <span class="stat-label">Clôturés</span>
@@ -101,6 +105,7 @@
             <tr>
               <th>Client</th>
               <th>Service</th>
+              <th>Type</th>
               <th>Téléphone</th>
               <th>Date début</th>
               <th>Reçu le</th>
@@ -118,7 +123,10 @@
                   </div>
                 </td>
                 <td>
-                  <span class="service-badge">{{ getServiceLabel(lead.service) }}</span>
+                  <span class="service-badge">{{ getServiceLabel(lead.service_slug || lead.service) }}</span>
+                </td>
+                <td>
+                  <span class="client-type-badge">{{ lead.client_type || '—' }}</span>
                 </td>
                 <td class="phone-cell">{{ lead.phone }}</td>
                 <td>{{ lead.date || '—' }}</td>
@@ -132,6 +140,7 @@
                     (change)="updateStatus(lead, $any($event.target).value)">
                     <option value="new">Nouveau</option>
                     <option value="contacted">Contacté</option>
+                    <option value="in_progress">En cours</option>
                     <option value="closed">Clôturé</option>
                   </select>
                 </td>
@@ -165,10 +174,20 @@
         <div class="detail-body">
 
           <div class="detail-service">
-            {{ getServiceLabel(selectedLead()!.service) }}
+            {{ getServiceLabel(selectedLead()!.service_slug || selectedLead()!.service) }}
           </div>
 
           <div class="detail-rows">
+            <div class="detail-row">
+              <span class="dr-label">Type de client</span>
+              <span class="dr-value">{{ selectedLead()!.client_type || '—' }}</span>
+            </div>
+            @if (selectedLead()!.company) {
+              <div class="detail-row">
+                <span class="dr-label">Entreprise</span>
+                <span class="dr-value">{{ selectedLead()!.company }}</span>
+              </div>
+            }
             <div class="detail-row">
               <span class="dr-label">Nom</span>
               <span class="dr-value">{{ selectedLead()!.full_name }}</span>
@@ -208,7 +227,7 @@
           <div class="detail-status-section">
             <p class="dr-label">Changer le statut</p>
             <div class="status-buttons">
-              @for (s of ['new', 'contacted', 'closed']; track s) {
+              @for (s of ['new', 'contacted', 'in_progress', 'closed']; track s) {
                 <button
                   class="status-btn"
                   [class]="'status-btn-' + s"

@@ -1,6 +1,6 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OrderRequest } from '../../models/service.model';
+import { OrderRequest, ClientType } from '../../models/service.model';
 
 @Component({
   selector: 'app-step-details',
@@ -9,11 +9,13 @@ import { OrderRequest } from '../../models/service.model';
   templateUrl: './step-details.component.html',
   styleUrl: './step-details.component.css'
 })
-export class StepDetailsComponent {
+export class StepDetailsComponent implements OnInit {
   formData = input.required<OrderRequest>();
   detailsSubmitted = output<Partial<OrderRequest>>();
   goBack = output<void>();
 
+  clientType = signal<ClientType>('particulier');
+  company = signal('');
   fullName = signal('');
   email = signal('');
   phone = signal('');
@@ -32,6 +34,8 @@ export class StepDetailsComponent {
 
   ngOnInit() {
     const data = this.formData();
+    if (data.client_type) this.clientType.set(data.client_type);
+    if (data.company) this.company.set(data.company);
     if (data.fullName) this.fullName.set(data.fullName);
     if (data.email) this.email.set(data.email);
     if (data.phone) this.phone.set(data.phone);
@@ -48,6 +52,8 @@ export class StepDetailsComponent {
   submit() {
     if (!this.isValid()) return;
     this.detailsSubmitted.emit({
+      client_type: this.clientType(),
+      company: this.company(),
       fullName: this.fullName(),
       email: this.email(),
       phone: this.phone(),
@@ -62,4 +68,3 @@ export class StepDetailsComponent {
     this.goBack.emit();
   }
 }
-

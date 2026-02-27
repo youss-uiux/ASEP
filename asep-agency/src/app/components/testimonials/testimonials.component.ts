@@ -13,26 +13,26 @@ export class TestimonialsComponent {
   testimonials = signal<Testimonial[]>([
     {
       id: 1,
-      name: 'Marie Dupont',
-      role: 'Mère de famille, Kinshasa',
-      content: 'Notre nounou Esther est devenue un membre de la famille. Les enfants l\'adorent et nous avons totalement confiance. ASEP a su comprendre exactement nos besoins.',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop&crop=faces',
+      name: 'Aminatou Boubacar',
+      role: 'Directrice RH, Société Minière du Niger',
+      content: 'ASEP nous fournit du personnel temporaire qualifié depuis 2 ans. Leur rigueur dans la sélection et le suivi est exemplaire. Un vrai partenaire RH.',
+      avatar: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&h=120&fit=crop&crop=faces',
       rating: 5
     },
     {
       id: 2,
-      name: 'Jean-Pierre Kabongo',
-      role: 'Propriétaire, Lubumbashi',
-      content: 'Le jardinier que ASEP nous a envoyé a complètement transformé notre extérieur. Ponctuel, créatif et très professionnel. Je recommande sans hésiter.',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=faces',
+      name: 'Ibrahim Moussa',
+      role: 'Gérant, Hôtel Sahel Niamey',
+      content: 'Du nettoyage à la sécurité, ASEP gère l\'intégralité de nos besoins multiservices. Ponctualité, discrétion et qualité constante.',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&h=120&fit=crop&crop=faces',
       rating: 5
     },
     {
       id: 3,
-      name: 'Cécile Mwamba',
-      role: 'Directrice d\'entreprise, Kinshasa',
-      content: 'La sécurité de notre résidence est assurée par un gardien ASEP depuis 2 ans. Fiable, discret et toujours vigilant. Un service premium qui vaut chaque centime.',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop&crop=faces',
+      name: 'Fatima Issa',
+      role: 'Organisatrice d\'événements, Niamey',
+      content: 'Le service traiteur et l\'organisation de notre conférence annuelle étaient impeccables. Professionnalisme du début à la fin.',
+      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&h=120&fit=crop&crop=faces',
       rating: 5
     }
   ]);

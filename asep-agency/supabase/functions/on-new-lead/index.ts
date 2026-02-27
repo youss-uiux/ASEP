@@ -12,7 +12,10 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 interface Lead {
   id: string;
   service: string;
-  fullName: string;
+  service_slug: string;
+  client_type: string;
+  company: string;
+  full_name: string;
   email: string;
   phone: string;
   address: string;
@@ -106,11 +109,17 @@ async function getFCMAccessToken(): Promise<string> {
  * Envoie un email de notification via l'API Resend.
  */
 async function sendEmailNotification(lead: Lead): Promise<void> {
-  const serviceLabels: Record<string, string> = {
-    nanny: '👶 Nounou',
-    gardener: '🌿 Jardinier',
-    guard: '🛡️ Gardien',
-  };
+  const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+  const { data: service } = await supabaseAdmin
+    .from('services')
+    .select('title, icon')
+    .eq('slug', lead.service_slug || lead.service)
+    .single();
+
+  const serviceLabel = service
+    ? `${service.icon} ${service.title}`
+    : (lead.service_slug || lead.service);
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -119,15 +128,17 @@ async function sendEmailNotification(lead: Lead): Promise<void> {
       Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: 'ASEP Agency <notifications@asep-agency.com>',
+      from: 'GROUP ASEP-AGENCY <notifications@asep-agency.com>',
       to: [AGENCY_EMAIL],
-      subject: `🔔 Nouvelle demande — ${serviceLabels[lead.service] || lead.service}`,
+      subject: `🔔 Nouvelle demande — ${serviceLabel}`,
       html: `
         <div style="font-family: system-ui, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #00A3D9;">Nouvelle demande de service</h2>
           <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px; font-weight: 600;">Service</td><td style="padding: 8px;">${serviceLabels[lead.service] || lead.service}</td></tr>
-            <tr style="background: #f8f8f8;"><td style="padding: 8px; font-weight: 600;">Nom</td><td style="padding: 8px;">${lead.fullName}</td></tr>
+            <tr><td style="padding: 8px; font-weight: 600;">Service</td><td style="padding: 8px;">${serviceLabel}</td></tr>
+            <tr style="background: #f8f8f8;"><td style="padding: 8px; font-weight: 600;">Type de client</td><td style="padding: 8px;">${lead.client_type || '—'}</td></tr>
+            ${lead.company ? `<tr><td style="padding: 8px; font-weight: 600;">Entreprise</td><td style="padding: 8px;">${lead.company}</td></tr>` : ''}
+            <tr style="background: #f8f8f8;"><td style="padding: 8px; font-weight: 600;">Nom</td><td style="padding: 8px;">${lead.full_name}</td></tr>
             <tr><td style="padding: 8px; font-weight: 600;">Email</td><td style="padding: 8px;"><a href="mailto:${lead.email}">${lead.email}</a></td></tr>
             <tr style="background: #f8f8f8;"><td style="padding: 8px; font-weight: 600;">Téléphone</td><td style="padding: 8px;"><a href="tel:${lead.phone}">${lead.phone}</a></td></tr>
             <tr><td style="padding: 8px; font-weight: 600;">Adresse</td><td style="padding: 8px;">${lead.address}</td></tr>
@@ -157,7 +168,6 @@ async function sendEmailNotification(lead: Lead): Promise<void> {
 async function sendPushNotifications(lead: Lead): Promise<void> {
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-  // Récupère tous les tokens
   const { data: tokens, error } = await supabase
     .from('admin_tokens')
     .select('token');
@@ -167,13 +177,18 @@ async function sendPushNotifications(lead: Lead): Promise<void> {
     return;
   }
 
-  const accessToken = await getFCMAccessToken();
+  // Résolution dynamique du label
+  const { data: service } = await supabase
+    .from('services')
+    .select('title, icon')
+    .eq('slug', lead.service_slug || lead.service)
+    .single();
 
-  const serviceLabels: Record<string, string> = {
-    nanny: '👶 Nounou',
-    gardener: '🌿 Jardinier',
-    guard: '🛡️ Gardien',
-  };
+  const serviceLabel = service
+    ? `${service.icon} ${service.title}`
+    : (lead.service_slug || lead.service);
+
+  const accessToken = await getFCMAccessToken();
 
   const results = await Promise.allSettled(
     tokens.map(({ token }) =>
@@ -189,8 +204,8 @@ async function sendPushNotifications(lead: Lead): Promise<void> {
             message: {
               token,
               notification: {
-                title: `🔔 Nouvelle demande — ${serviceLabels[lead.service] || lead.service}`,
-                body: `${lead.fullName} recherche un(e) ${serviceLabels[lead.service]?.toLowerCase() || lead.service}. Contactez-le au ${lead.phone}.`,
+                title: `🔔 Nouvelle demande — ${serviceLabel}`,
+                body: `${lead.full_name} — ${serviceLabel}. Contact : ${lead.phone}.`,
               },
               webpush: {
                 fcm_options: {
@@ -199,7 +214,7 @@ async function sendPushNotifications(lead: Lead): Promise<void> {
               },
               data: {
                 lead_id: lead.id,
-                service: lead.service,
+                service_slug: lead.service_slug || lead.service,
               },
             },
           }),
@@ -240,7 +255,7 @@ serve(async (req: Request) => {
     }
 
     const lead = payload.record;
-    console.log(`[on-new-lead] Nouveau lead reçu: ${lead.id} — ${lead.fullName}`);
+    console.log(`[on-new-lead] Nouveau lead reçu: ${lead.id} — ${lead.full_name}`);
 
     // Exécute les deux actions en parallèle
     await Promise.allSettled([

@@ -1,19 +1,19 @@
 <div class="step-service" style="animation: fadeInUp 0.4s ease-out">
   <h3 class="step-title">Quel service recherchez-vous ?</h3>
-  <p class="step-desc">Sélectionnez le type de personnel dont vous avez besoin.</p>
+  <p class="step-desc">Sélectionnez le secteur d'activité qui correspond à votre besoin.</p>
 
   <div class="service-cards">
     @for (service of services(); track service.id) {
       <button
         class="service-option"
-        [class.selected]="selectedService() === service.id"
-        [class.hovered]="hoveredCard() === service.id"
-        (mouseenter)="hoveredCard.set(service.id)"
+        [class.selected]="selectedService() === service.slug"
+        [class.hovered]="hoveredCard() === service.slug"
+        (mouseenter)="hoveredCard.set(service.slug)"
         (mouseleave)="hoveredCard.set(null)"
-        (click)="selectService(service.id)">
+        (click)="selectService(service.slug, service.id)">
         <span class="option-icon">{{ service.icon }}</span>
         <span class="option-title">{{ service.title }}</span>
-        <span class="option-desc">{{ service.desc }}</span>
+        <span class="option-desc">{{ service.description }}</span>
         <ul class="option-features">
           @for (feature of service.features; track feature) {
             <li>
@@ -25,7 +25,7 @@
           }
         </ul>
         <span class="select-indicator">
-          @if (selectedService() === service.id) {
+          @if (selectedService() === service.slug) {
             Sélectionné ✓
           } @else {
             Choisir →
@@ -35,4 +35,3 @@
     }
   </div>
 </div>
-

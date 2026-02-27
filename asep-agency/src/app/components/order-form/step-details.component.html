@@ -4,6 +4,27 @@
 
   <div class="form-grid">
     <div class="form-group">
+      <label class="form-label">Type de client</label>
+      <select class="form-input"
+        [value]="clientType()"
+        (change)="clientType.set($any($event.target).value)">
+        <option value="particulier">Particulier</option>
+        <option value="entreprise">Entreprise</option>
+        <option value="institution">Institution</option>
+      </select>
+    </div>
+
+    @if (clientType() !== 'particulier') {
+      <div class="form-group">
+        <label class="form-label">Nom de l'entreprise / institution</label>
+        <input type="text" class="form-input"
+          placeholder="Ex : Société XYZ"
+          [value]="company()"
+          (input)="company.set($any($event.target).value)" />
+      </div>
+    }
+
+    <div class="form-group">
       <label class="form-label">Nom complet</label>
       <input
         type="text"

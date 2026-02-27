@@ -1,4 +1,5 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, inject, OnInit } from '@angular/core';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-step-service',
@@ -6,38 +7,21 @@ import { Component, input, output, signal } from '@angular/core';
   templateUrl: './step-service.component.html',
   styleUrl: './step-service.component.css'
 })
-export class StepServiceComponent {
+export class StepServiceComponent implements OnInit {
   selectedService = input('');
-  serviceChosen = output<string>();
+  serviceChosen = output<{ slug: string; id: string }>();
 
+  private supabaseService = inject(SupabaseService);
+  services = this.supabaseService.services;
   hoveredCard = signal<string | null>(null);
 
-  services = signal([
-    {
-      id: 'nanny',
-      title: 'Nounou',
-      icon: '👶',
-      desc: 'Garde d\'enfants et aide à la maison',
-      features: ['Garde jour & nuit', 'Aide aux devoirs', 'Activités éducatives']
-    },
-    {
-      id: 'gardener',
-      title: 'Jardinier',
-      icon: '🌿',
-      desc: 'Entretien et aménagement d\'espaces verts',
-      features: ['Tonte & taille', 'Aménagement paysager', 'Potager bio']
-    },
-    {
-      id: 'guard',
-      title: 'Gardien',
-      icon: '🛡️',
-      desc: 'Surveillance et sécurité de votre propriété',
-      features: ['Rondes régulières', 'Gestion des accès', 'Surveillance 24/7']
+  async ngOnInit() {
+    if (this.services().length === 0) {
+      await this.supabaseService.loadServices();
     }
-  ]);
+  }
 
-  selectService(id: string) {
-    this.serviceChosen.emit(id);
+  selectService(slug: string, id: string) {
+    this.serviceChosen.emit({ slug, id });
   }
 }
-

@@ -46,28 +46,18 @@
   line-height: 1.7;
 }
 
-.bento-grid {
+.services-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 340px 280px;
-  grid-template-areas:
-    "nanny gardener"
-    "nanny guard";
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
-  .bento-grid {
+  .services-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-      "nanny"
-      "gardener"
-      "guard";
   }
 
   .services-section {
     padding: 4rem 1.25rem;
   }
 }
-

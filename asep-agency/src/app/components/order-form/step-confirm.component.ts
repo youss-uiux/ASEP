@@ -1,5 +1,6 @@
-import { Component, input, output, computed } from '@angular/core';
+import { Component, input, output, computed, inject } from '@angular/core';
 import { OrderRequest } from '../../models/service.model';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-step-confirm',
@@ -13,11 +14,7 @@ export class StepConfirmComponent {
   confirmed = output<void>();
   goBack = output<void>();
 
-  serviceLabels: Record<string, string> = {
-    nanny: '👶 Nounou',
-    gardener: '🌿 Jardinier',
-    guard: '🛡️ Gardien'
-  };
+  private supabaseService = inject(SupabaseService);
 
   durationLabels: Record<string, string> = {
     ponctuel: 'Ponctuel (1 jour)',
@@ -27,15 +24,16 @@ export class StepConfirmComponent {
     permanent: 'Permanent'
   };
 
-  serviceLabel = computed(() => this.serviceLabels[this.formData().service] || this.formData().service);
+  clientTypeLabels: Record<string, string> = {
+    particulier: 'Particulier',
+    entreprise: 'Entreprise',
+    institution: 'Institution'
+  };
+
+  serviceLabel = computed(() => this.supabaseService.getServiceLabel(this.formData().service_slug));
   durationLabel = computed(() => this.durationLabels[this.formData().duration] || this.formData().duration);
+  clientTypeLabel = computed(() => this.clientTypeLabels[this.formData().client_type] || this.formData().client_type);
 
-  confirm() {
-    this.confirmed.emit();
-  }
-
-  back() {
-    this.goBack.emit();
-  }
+  confirm() { this.confirmed.emit(); }
+  back() { this.goBack.emit(); }
 }
-

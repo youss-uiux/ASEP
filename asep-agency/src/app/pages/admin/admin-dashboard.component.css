@@ -556,3 +556,24 @@
   .detail-panel { width: 100%; }
 }
 
+/* ── Client type badge ── */
+.client-type-badge {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  background: var(--cream);
+  color: var(--gray);
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* ── In progress status ── */
+.stat-card.in_progress .stat-value { color: #8b5cf6; }
+.status-select.status-in_progress { border-color: #8b5cf6; color: #8b5cf6; }
+.status-btn-in_progress.active,
+.status-btn-in_progress:hover {
+  border-color: #8b5cf6;
+  color: #8b5cf6;
+  background: #f5f3ff;
+}
+
